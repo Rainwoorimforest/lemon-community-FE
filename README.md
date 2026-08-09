@@ -7,7 +7,6 @@
 - **기획부터 백엔드 연동까지 1인 프론트엔드 개발**
   초기 서비스 기획부터 UI/UX 화면 구성, 컴포넌트 설계, 백엔드 API 연동까지 프론트엔드의 전 과정을 주도적으로 단독 구현함.
 - **React 기반의 SPA 구현**
-  React 라이브러리를 활용하여 Single Page Application(SPA)으로 구축해 부드럽고 빠른 사용자 경험(UX)을 제공함.
   
 
 ## 개발 인원 및 기간
@@ -18,10 +17,9 @@
 ## 사용 기술 및 도구 (Tech Stack & Tools)
 - 기획: [🍋 레몬 기획 노션](https://spotted-beard-c11.notion.site/3aeb3a32364e801fa6d6ec1829a624b3?source=copy_link)
 - **Library/Framework** : React
-- **Language** : JavaScript / TypeScript (사용하신 것 남기기)
-- **Styling** : CSS Modules / Styled-Components / Tailwind CSS (사용하신 것 남기기)
-- **State Management** : Zustand / Redux / Context API (사용하신 것 남기기)
-- **HTTP/Network** : Axios, WebSocket (STOMP)
+- **Language** : JavaScript 
+- **Styling** : CSS Modules / Styled-Components 
+- **HTTP/Network** : WebSocket (STOMP)
 
 
 ## 폴더 구조
