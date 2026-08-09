@@ -2,19 +2,27 @@
 
 ## Front-end 소개
 
-데일리 영어 회화 표현을 피드로 공유하고 채팅으로 연습할 수 있는 _🍋레몬 영어회화 플랫폼_입니다.
-공유하고 싶은 영어 표현을 게시하고, 팀원들과 표현을 자유롭게 연습해볼 수 있습니다.
-React 라이브러리를 사용하여 구현하였고, 이외에 초기 프로젝트 기획, 화면구성, 백엔드 연결까지 직접 구현하였습니다.
+- **🍋 레몬 영어회화 플랫폼**
+  데일리 영어 회화 표현을 피드로 공유하고, 채팅을 통해 실시간으로 연습할 수 있는 커뮤니티 플랫폼. 공유하고 싶은 표현을 게시하고 팀원들과 자유롭게 대화하며 학습할 수 있는 환경을 제공함.
+- **기획부터 백엔드 연동까지 1인 프론트엔드 개발**
+  초기 서비스 기획부터 UI/UX 화면 구성, 컴포넌트 설계, 백엔드 API 연동까지 프론트엔드의 전 과정을 주도적으로 단독 구현함.
+- **React 기반의 SPA 구현**
+  React 라이브러리를 활용하여 Single Page Application(SPA)으로 구축해 부드럽고 빠른 사용자 경험(UX)을 제공함.
+  
 
 ## 개발 인원 및 기간
+- **개발 기간** : 2026. 05. 29 ~ 2026. 08. 09
+- **개발 인원** : 1명 (기획, 프론트엔드, 백엔드 전 과정 1인 개발)
+  
 
-- 개발기간 : 2026-05-29 ~ 2026-08-09
-- 개발 인원 : 프론트엔드/백엔드 1명 (본인)
-
-## 사용 기술 및 tools
-
-- 개발: React
+## 사용 기술 및 도구 (Tech Stack & Tools)
 - 기획: [🍋 레몬 기획 노션](https://spotted-beard-c11.notion.site/3aeb3a32364e801fa6d6ec1829a624b3?source=copy_link)
+- **Library/Framework** : React
+- **Language** : JavaScript / TypeScript (사용하신 것 남기기)
+- **Styling** : CSS Modules / Styled-Components / Tailwind CSS (사용하신 것 남기기)
+- **State Management** : Zustand / Redux / Context API (사용하신 것 남기기)
+- **HTTP/Network** : Axios, WebSocket (STOMP)
+
 
 ## 폴더 구조
 <details>
@@ -60,7 +68,7 @@ React 라이브러리를 사용하여 구현하였고, 이외에 초기 프로�
  ┣ 📜 .gitignore                # Git 제외 파일 목록
  ┗ 📜 package.json              # 프로젝트 의존성 관리 파일
 ```
-</div>
+</details>
 
 ## 서비스 화면
 #### 홈
