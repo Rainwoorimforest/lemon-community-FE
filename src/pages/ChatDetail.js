@@ -70,6 +70,9 @@ export default function ChatDetail() {
 
     const currentUserId = currentUser?.userId || 'me';
     const currentUserNickname = currentUser?.nickname || '나';
+    
+    // 입장 메시지 중복 발송 방지용 ref
+    const hasSentEnter = useRef(false);
 
     const [isNotice, setIsNotice] = useState(true);
     const [messages, setMessages] = useState([]);
@@ -216,6 +219,8 @@ export default function ChatDetail() {
 
     // 채팅방 정보 조회후 STOMP 웹소켓 연결 시작
     useEffect(() => {
+        // 유저 정보가 아직 로드되지 않았으면 대기
+        if (currentUserId === 'me') return;
         
         const fetchChatRoomInfo = async () => {
             try {
@@ -260,15 +265,17 @@ export default function ChatDetail() {
                     });
 
                     // 구독 완료 직후, 방에 처음 들어왔다는 입장 메시지를 백엔드에 전송
-                    client.current.publish({
-                        destination: `/publish/chat.enter.${roomId}`,
-                        body: JSON.stringify({ 
-                            // messageId: crypto.randomUUID(),
-                            messageId: Date.now().toString() + Math.random().toString(36).substring(2),
-                            message: "ENTER", // 백엔드 Validation 통과용 임의 문자열
-                            senderId: currentUserId
-                        })
-                    });
+                    if (!hasSentEnter.current) {
+                        client.current.publish({
+                            destination: `/publish/chat.enter.${roomId}`,
+                            body: JSON.stringify({ 
+                                messageId: Date.now().toString() + Math.random().toString(36).substring(2),
+                                message: "ENTER", 
+                                senderId: currentUserId
+                            })
+                        });
+                        hasSentEnter.current = true;
+                    }
                 },
                 onStompError: (frame) => console.error('socket 에러 발생: ' + frame.body)
             });
@@ -282,8 +289,10 @@ export default function ChatDetail() {
                 client.current.deactivate();
                 client.current = null;
             }
+            // 컴포넌트가 언마운트될 때(방을 나갈 때)는 입장 플래그를 초기화
+            hasSentEnter.current = false;
         };
-    }, [roomId]);
+    }, [roomId, currentUserId]);
 
     useEffect(() => {
         if (!isDrawerOpen) return;

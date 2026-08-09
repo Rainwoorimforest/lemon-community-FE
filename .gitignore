@@ -42,3 +42,12 @@ secret*
 
 # Design
 /docs 
+
+# Unused boilerplate files
+src/reportWebVitals.js
+src/setupTests.js
+public/favicon.ico
+public/logo192.png
+public/logo512.png
+public/manifest.json
+public/robots.txt
