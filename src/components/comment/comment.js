@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'; // Webpack recompile trigger
+import Avatar from '../Avatar.js';
 
 export default function Comment({
   comment,
@@ -11,8 +12,6 @@ export default function Comment({
   onEditSave,
   onEditCancel
 }) {
-  const avatarInitial = comment.author ? comment.author.charAt(0) : 'U';
-  
   // 날짜 형식 포맷팅
   const formattedDate = comment.createdAt 
     ? comment.createdAt.replace('T', ' ').substring(0, 19) 
@@ -21,7 +20,12 @@ export default function Comment({
   return (
     <li className="comment-item">
       {/* 아바타 영역 */}
-      <div className="comment-item__avatar">{avatarInitial}</div>
+      <Avatar 
+        src={comment.authorProfileImg} 
+        nickname={comment.author} 
+        size={32} 
+        className="comment-item__avatar"
+      />
 
       <div className="comment-item__body">
         <div className="comment-item__meta">

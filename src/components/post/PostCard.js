@@ -1,5 +1,6 @@
 import '../../css/post-list.css';
 import ImageSlider from './ImageSlider.js';
+import Avatar from '../Avatar.js';
 
 export default function PostCard({post, handleClick}) {
     // 게시글 제목, 작성자, 생성날짜, postInfo(좋아요, 댓글, 조회수)
@@ -10,8 +11,6 @@ export default function PostCard({post, handleClick}) {
     const formattedDate = post.createdAt 
         ? post.createdAt.replace('T', ' ').substring(0, 19) 
         : '2021-01-01 00:00:00';
-
-    const avatarInitial = post.nickname ? post.nickname.charAt(0) : 'User';
 
     return (
         <article 
@@ -40,7 +39,12 @@ export default function PostCard({post, handleClick}) {
 
             <div className="post-card__meta">
                 <div className="post-card__author">
-                    <div className="post-card__avatar">{avatarInitial}</div>
+                    <Avatar 
+                        src={post.authorProfileImg} 
+                        nickname={post.nickname} 
+                        size={24} 
+                        className="post-card__avatar"
+                    />
                     <span className="post-card__author-name">{post.nickname}</span>
                 </div>
                 

@@ -4,6 +4,7 @@ import useFetch from '../hooks/useFetch.js';
 import { useInput } from '../hooks/useInput.js';
 import { validateEmail, validatePassword, validatePasswordCheck, validateNickname } from '../utils/validators.js';
 import InputField from '../components/InputField.js';
+import Avatar from '../components/Avatar.js';
 
 import '../css/signup.css';
 
@@ -30,8 +31,7 @@ export default function SignUp() {
         signUpdata ? '/users/signup' : null,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(signUpdata), 
+          body: signUpdata, 
         },
         [signUpdata]
     );
@@ -55,15 +55,20 @@ export default function SignUp() {
         e.preventDefault();
         
         if (isFormValid) {
-            // TODO: new Format으로 해야하나? 무슨 차이인지
-            setSignUpData({
+            const formData = new FormData();
+            const payload = {
                 email: emailInput.value,
                 password: passwordInput.value,
                 passwordCheck: passwordCheckInput.value,
-                nickname: nicknameInput.value,
-                content_image: ""
-
-            });
+                nickname: nicknameInput.value
+            };
+            formData.append("request", new Blob([JSON.stringify(payload)], { type: "application/json" }));
+            
+            if (profileFile) {
+                formData.append("file", profileFile);
+            }
+            
+            setSignUpData(formData);
         } else {
             alert("입력 정보를 다시 확인해 주세요.");
         }
@@ -98,11 +103,11 @@ export default function SignUp() {
                         {/* 로고 */}
                         <div className="signup-panel__logo">
                             <div className="signup-panel__logo-icon">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M2.5 4.5A2 2 0 014.5 2.5h11a2 2 0 012 2v9a2 2 0 01-2 2H12l-2 2.5L8 15.5H4.5a2 2 0 01-2-2v-9z" fill="rgba(255,255,255,0.9)" />
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                    <path d="M12 2C16 2 22 8 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 8 8 2 12 2Z" fill="none" />
                                 </svg>
                             </div>
-                            <span className="signup-panel__logo-name">블루커뮤니티</span>
+                            <span className="signup-panel__logo-name">Lemon English</span>
                         </div>
 
                         {/* 메인 타이틀 */}
@@ -110,7 +115,7 @@ export default function SignUp() {
                             지금 바로<br />시작하세요
                         </h2>
                         <p className="signup-panel__desc">
-                            우리집 근처부터 전국까지<br />편리한 중고 거래
+                            상쾌하게 단단해지는<br />우리의 영어 회화 시간
                         </p>
                     </div>
 
@@ -132,7 +137,7 @@ export default function SignUp() {
 
                     {/* 푸터 카피라이트 */}
                     <div className="signup-panel__footer">
-                        <p className="signup-panel__footer-text">© 2026 블루커뮤니티</p>
+                        <p className="signup-panel__footer-text">© 2026 Lemon English</p>
                     </div>
                 </div>
 
@@ -148,17 +153,13 @@ export default function SignUp() {
                         
                         {/* 프로필 이미지 업로드 영역 */}
                         <div className="profile-upload-group" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                            <div 
-                                className="profile-preview" 
-                                id="profilePreview" 
+                            <Avatar 
+                                src={previewUrl} 
+                                nickname={nicknameInput.value}
+                                size={100}
+                                className="profile-preview"
                                 onClick={() => document.getElementById('profileImgInput').click()}
-                            >
-                                {previewUrl ? (
-                                    <img src={previewUrl} alt="프로필 미리보기" />
-                                ) : (
-                                    <span className="upload-placeholder">+</span>
-                                )}
-                            </div>
+                            />
                             <label htmlFor="profileImgInput" className="btn-upload">
                                 프로필 사진 선택
                             </label>

@@ -50,7 +50,7 @@ export default function PostList() {
     }, [hasMore, loading, loadMore]);
 
     const handleClick = useCallback((postId) => {
-        navigate(`/post/${postId}`);
+        navigate(`/board/${postId}`);
     }, [navigate]);
 
     
@@ -75,7 +75,7 @@ export default function PostList() {
                             type="button" 
                             id="goToPostWriteBtn" 
                             className="btn-write"
-                            onClick={() => navigate('/post/write')}
+                            onClick={() => navigate('/board/write')}
                         >
                             <svg viewBox="0 0 14 14">
                                 <path d="M7 1v12M1 7h12" />

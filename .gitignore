@@ -39,3 +39,6 @@ yarn-error.log*
 *.pub
 *credentials*
 secret*
+
+# Design
+/docs 

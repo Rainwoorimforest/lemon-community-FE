@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import '../css/header.css';
-import defaultProfile from '../images/default-profile.png'; 
+import Avatar from './Avatar.js'; 
 
 export default function Header({ user, setIsLoggedIn }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate(); 
   const location = useLocation();
+
 
   // 외부 영역 클릭 시 드롭다운 닫기
   useEffect(() => {
@@ -27,13 +28,13 @@ export default function Header({ user, setIsLoggedIn }) {
 
   // 회원정보 수정 이동
   const handleEditInfo = () => {
-    navigate('/user/edit', { state: { userId: user?.userId } });
+    navigate('/profile/edit', { state: { userId: user?.userId } });
     setIsDropdownOpen(false);
   };
 
   // 비밀번호 수정 이동
   const handleEditPwd = () => {
-    navigate('/user/password', { state: { userId: user?.userId } });
+    navigate('/profile/password', { state: { userId: user?.userId } });
     setIsDropdownOpen(false);
   };
 
@@ -51,7 +52,7 @@ export default function Header({ user, setIsLoggedIn }) {
     setIsDropdownOpen(false);
   };
 
-  const isMainPage = location.pathname === '/posts' || location.pathname === '/post';
+  const isMainPage = location.pathname.startsWith('/board');
 
   return (
     <nav className="global-header" data-auth="user">
@@ -73,9 +74,9 @@ export default function Header({ user, setIsLoggedIn }) {
         <h1 
           className="header-title" 
           style={{ cursor: 'pointer' }}
-          onClick={() => navigate('/posts')}
+          onClick={() => navigate('/board')}
         >
-          블루커뮤니티
+          🍋 Lemon English
         </h1>
 
         {/* 오른쪽: 사용자 정보 및 드롭다운 메뉴 구역 */}
@@ -89,10 +90,11 @@ export default function Header({ user, setIsLoggedIn }) {
             }}
             className="btn-profile"
           >
-            <img 
-              src={user?.profileImage || defaultProfile} 
-              alt="프로필" 
-              className="profile-img" 
+            <Avatar 
+              src={user?.profileImage} 
+              nickname={user?.nickname}
+              className="profile-img"
+              size={36}
             />
           </button>
 

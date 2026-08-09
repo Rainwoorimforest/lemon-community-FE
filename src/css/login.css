@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--blue-50) 0%, #ffffff 50%, var(--blue-100) 100%);
+  background: linear-gradient(135deg, var(--color-bg-gradient-from) 0%, var(--color-surface) 50%, var(--color-bg-gradient-to) 100%);
   padding: var(--space-6) var(--space-4);
   font-family: var(--font-sans);
 }

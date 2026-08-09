@@ -5,7 +5,7 @@
 
 .post-list-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(239 246 255 / 0.60) 0%, #ffffff 40%);
+  background: linear-gradient(180deg, var(--color-bg-gradient-from) 0%, var(--color-bg-gradient-to) 40%);
   font-family: var(--font-sans);
 }
 
@@ -129,12 +129,12 @@
   color: var(--blue-700);
 }
 
-.post-card__badge--career     { background: #dbeafe; color: #1d4ed8; }
-.post-card__badge--frontend   { background: #e0e7ff; color: #4338ca; }
-.post-card__badge--side       { background: #cffafe; color: #0e7490; }
-.post-card__badge--culture    { background: #e0f2fe; color: #0369a1; }
+.post-card__badge--career     { background: var(--lemon-100); color: var(--navy-700); }
+.post-card__badge--frontend   { background: var(--cream-100); color: var(--navy-900); }
+.post-card__badge--side       { background: var(--gray-100); color: var(--navy-500); }
+.post-card__badge--culture    { background: var(--olive-500); color: var(--cream-0); }
 .post-card__badge--database   { background: var(--blue-50); color: var(--blue-700); }
-.post-card__badge--growth     { background: #ede9fe; color: #6d28d9; }
+.post-card__badge--growth     { background: var(--coral-500); color: var(--cream-0); }
 
 /* 제목 */
 .post-card__title {

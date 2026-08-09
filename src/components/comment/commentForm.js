@@ -1,4 +1,5 @@
 import React from 'react';
+import Avatar from '../Avatar.js';
 
 export default function CommentForm({
   user,
@@ -8,9 +9,12 @@ export default function CommentForm({
 }) {
   return (
     <form className="comment-input-row" onSubmit={onSubmit}>
-      <div className="comment-input-row__avatar">
-        {user?.nickname ? user.nickname.charAt(0) : 'Me'}
-      </div>
+      <Avatar 
+        src={user?.profileImage} 
+        nickname={user?.nickname || 'Me'} 
+        size={36} 
+        className="comment-input-row__avatar"
+      />
       <div className="comment-input-row__inner">
         <input 
           type="text" 

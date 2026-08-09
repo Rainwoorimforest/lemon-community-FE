@@ -5,7 +5,7 @@
 
 .post-detail-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(239 246 255 / 0.60) 0%, #ffffff 40%);
+  background: linear-gradient(180deg, var(--color-bg-gradient-from) 0%, var(--color-bg-gradient-to) 40%);
   font-family: var(--font-sans);
 }
 

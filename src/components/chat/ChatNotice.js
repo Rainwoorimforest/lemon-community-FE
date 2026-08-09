@@ -2,7 +2,11 @@ import React from 'react';
 import * as Icons from '../Icons.js';
 
 export default function ChatNotice({ isNotice, setIsNotice, noticeText }) {
-  const content = noticeText || "공지사항이 없습니다.";
+  if (!noticeText || noticeText.trim().length === 0) {
+    return null;
+  }
+
+  const content = noticeText;
 
   return (
     isNotice ? (

@@ -151,7 +151,7 @@
   font-size: var(--font-size-xs);
   font-weight: 500;
   color: var(--color-text-secondary);
-  background: #f1f5f9;
+  background: var(--color-bg-page);
   border-radius: var(--radius-full);
   padding: 1px var(--space-2);
 }

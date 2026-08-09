@@ -7,7 +7,7 @@
 
 .user-edit-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(239 246 255 / 0.60) 0%, #ffffff 40%);
+  background: linear-gradient(180deg, var(--color-bg-gradient-from) 0%, var(--color-bg-gradient-to) 40%);
   font-family: var(--font-sans);
 }
 
@@ -135,7 +135,7 @@
   font-size: 0.625rem;         /* 10px */
   font-weight: 600;
   color: var(--color-text-secondary);
-  background: #f1f5f9;
+  background: var(--color-bg-page);
   border-radius: var(--radius-full);
   padding: 1px var(--space-2);
   letter-spacing: 0.02em;
@@ -192,7 +192,7 @@
 /* 인풋 — 읽기전용 (이메일) */
 .field__input--readonly,
 .field__input[readonly] {
-  background: #f8fafc;
+  background: var(--color-bg-page);
   color: var(--color-text-secondary);
   border-color: #e2e8f0;
   cursor: default;

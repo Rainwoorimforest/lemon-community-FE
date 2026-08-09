@@ -88,7 +88,7 @@ export default function PostWrite() {
   useEffect(() => {
     if (createData) {
       alert("게시글이 작성되었습니다.");
-      navigate('/posts');
+      navigate('/board');
     }
   }, [createData, navigate]);
 
@@ -96,7 +96,7 @@ export default function PostWrite() {
   useEffect(() => {
     if (updateData) {
       alert("게시글이 수정되었습니다.");
-      navigate('/posts');
+      navigate('/board');
     }
   }, [updateData, navigate]);
 

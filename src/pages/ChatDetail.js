@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.js'; 
+import useFetch from '../hooks/useFetch.js';
 import { CHAT_INFO_DATA } from '../mock-data/chatInfoData.js';
 import ChatHeader from '../components/chat/ChatHeader.js';
 import ChatNotice from '../components/chat/ChatNotice.js';
@@ -33,6 +34,7 @@ const formatHistoryData = (historyChats) => {
         message: chat.message,
         senderId: chat.senderId,
         senderNickname: chat.senderNickname,
+        profileImg: chat.profileImg,
         chatRoomId: chat.chatRoomId,
         chatRole: chat.chatRole,
         messageRole: chat.messageRole,
@@ -49,6 +51,7 @@ const formatSocketMessage = (received) => {
         message: received.message,
         senderId: received.senderId,
         senderNickname: received.senderNickname, 
+        profileImg: received.profileImg,
         chatRoomId: received.chatRoomId,
         chatRole: received.chatRole,
         messageRole: received.messageRole,
@@ -75,26 +78,76 @@ export default function ChatDetail() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [chatTitle, setChatTitle] = useState(CHAT_INFO_DATA.chatTitle);
     const [chatSubtitle, setChatSubtitle] = useState(CHAT_INFO_DATA.chatSummary);
-    const [chatNoticeText, setChatNoticeText] = useState(CHAT_INFO_DATA.noticeContent);
+    const [chatNoticeText, setChatNoticeText] = useState('');
     const [participantCount, setParticipantCount] = useState(1);
     
     const [hostId, setHostId] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
+
     const [participants, setParticipants] = useState([]);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
+
+    const [noticePayload, setNoticePayload] = useState(null);
+    const [noticeMethod, setNoticeMethod] = useState('POST');
+    const hasExistingNotice = Boolean(chatNoticeText && chatNoticeText.trim().length > 0);
+
+    // 공지 생성 
+    const { data: createNoticeResult, error: createNoticeError } = useFetch(
+        noticePayload ? `/chatrooms/${roomId}/notice` : null,
+        {
+            method: noticeMethod,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ notice: noticePayload })
+        },
+        [noticePayload]
+    );
+
+    useEffect(() => {
+        if (createNoticeResult) {
+            alert("공지가 성공적으로 등록되었습니다.");
+            setNoticePayload(null);
+        }
+    }, [createNoticeResult]);
+
+    useEffect(() => {
+        if (createNoticeError) {
+            console.error(createNoticeError);
+            alert("공지 등록에 실패했습니다.");
+            setNoticePayload(null);
+        }
+    }, [createNoticeError]);
+
+    useEffect(() => {
+        if (hostId && currentUserId) {
+            setIsOwner(String(hostId) === String(currentUserId));
+        }
+    }, [hostId, currentUserId]);
+
+    const handleSaveNotice = (noticeText) => {
+        if (!isOwner) {
+            alert("방장만 공지를 등록/수정할 수 있습니다.");
+            return;
+        }
+        setNoticeMethod(hasExistingNotice ? 'PATCH' : 'POST');
+        setNoticePayload(noticeText);
+        setChatNoticeText(noticeText); // 화면에도 즉시 반영
+    };
 
     const handleSaveSettings = async () => {
         try {
             const response = await fetch(`/chatrooms/${roomId}`, {
                 method: 'PATCH',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     title: chatTitle,
-                    summary: chatSubtitle,
-                    notice: chatNoticeText
+                    summary: chatSubtitle
                 })
             });
 
@@ -119,13 +172,14 @@ export default function ChatDetail() {
 
         try {
             const response = await fetch(`/chatrooms/${roomId}`, { 
-                method: 'DELETE' 
+                method: 'DELETE',
+                credentials: 'include'
             });
             
             if (response.ok) {
                 setIsDeleteModalOpen(false);
                 alert("채팅방이 삭제되었습니다.");
-                navigate('/posts'); 
+                navigate('/board'); 
             } else {
                 alert("삭제 실패했습니다. 권한을 확인해주세요.");
             }
@@ -137,13 +191,14 @@ export default function ChatDetail() {
     const confirmLeaveRoom = async () => {
         try {
             const response = await fetch(`/chatrooms/${roomId}/leave`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             });
 
             if (response.ok) {
                 setIsLeaveModalOpen(false);
                 alert("채팅방을 나갔습니다.");
-                navigate('/posts');
+                navigate('/board');
             } else {
                 alert("나가기 실패했습니다.");
             }
@@ -165,14 +220,15 @@ export default function ChatDetail() {
         const fetchChatRoomInfo = async () => {
             try {
                 const response = await fetch(`/chatrooms/${roomId}`, {
-                    method: 'GET'
+                    method: 'GET',
+                    credentials: 'include'
                 });
                 if (response.ok) {
                     const roomInfo = (await response.json()).data; 
                     if (roomInfo) {
                         setChatTitle(roomInfo.title);
                         setChatSubtitle(roomInfo.summary);
-                        setChatNoticeText(roomInfo.notice || '등록된 공지사항이 없습니다.');
+                        setChatNoticeText(roomInfo.notice || '');
                         setParticipantCount(roomInfo.participantCount || 1);
                         
                         const fetchedHostId = String(roomInfo.hostId);
@@ -235,7 +291,8 @@ export default function ChatDetail() {
         const fetchParticipants = async () => {
             try {
                 const response = await fetch(`/chatrooms/${roomId}/participant`, {
-                    method: 'GET'
+                    method: 'GET',
+                    credentials: 'include'
                 });
                 if (response.ok) {
                     const data = (await response.json()).data;
@@ -299,7 +356,7 @@ export default function ChatDetail() {
         title={chatTitle} 
         subtitle={chatSubtitle}
         memberCount={participantCount} 
-        onBack={() => navigate('/posts')} 
+        onBack={() => setIsLeaveModalOpen(true)} 
         isOpen={isDrawerOpen}
         onHamburgerClick={() => setIsDrawerOpen(!isDrawerOpen)}
     />
@@ -332,8 +389,10 @@ export default function ChatDetail() {
         setSubtitle={setChatSubtitle}
         notice={chatNoticeText}
         setNotice={setChatNoticeText}
+        onSaveNotice={handleSaveNotice}
         onSave={handleSaveSettings}
         isOwner={isOwner}
+        hasExistingNotice={hasExistingNotice}
         onDelete={() => setIsDeleteModalOpen(true)}
         onLeave={() => setIsLeaveModalOpen(true)}
         participants={participants}

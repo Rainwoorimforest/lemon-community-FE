@@ -6,6 +6,7 @@ import CommentSection from '../components/comment/commentSection.js';
 import PostStat from '../components/post/PostStat.js';
 import Modal from '../components/Modal.js';   
 import ImageSlider from '../components/post/ImageSlider.js';
+import Avatar from '../components/Avatar.js';
 import { useAuth } from '../context/AuthContext.js';
 import useFetch from '../hooks/useFetch.js';
 import '../css/post-detail.css';
@@ -141,7 +142,7 @@ export default function PostDetail() {
   useEffect(() => {
     if (deletePostResult) {
       alert("게시글이 삭제되었습니다.");
-      navigate('/posts');
+      navigate('/board');
     }
   }, [deletePostResult, navigate]);
 
@@ -234,7 +235,7 @@ export default function PostDetail() {
   const handleEditPost = (e) => {
     e.preventDefault();
     if (String(post?.authorId) === String(userId)) {
-      navigate(`/post/write/${postId}`);
+      navigate(`/board/write/${postId}`);
     } else {
       alert("본인이 작성한 글이 아닙니다.");
     }
@@ -298,7 +299,7 @@ export default function PostDetail() {
 
   const handleGoToChat = useCallback(() => {
     if (chatRoomId) {
-      navigate(`/chat-detail/${chatRoomId}`);
+      navigate(`/chat/${chatRoomId}`);
     }
   }, [chatRoomId, navigate]);
 
@@ -307,7 +308,6 @@ export default function PostDetail() {
   if (error) return <div className="post-detail-error">에러가 발생했습니다: {error.message}</div>;
   if (!post) return <div className="post-detail-empty">게시글이 존재하지 않습니다.</div>;
 
-  const avatarInitial = post.nickname ? post.nickname.charAt(0) : 'U';
   const formattedDate = post.createdAt ? post.createdAt.replace('T', ' ').substring(0, 19) : '';
 
   return (
@@ -316,7 +316,7 @@ export default function PostDetail() {
         <Header user={user} />
         <main className="post-detail-main">
           
-          <button type="button" id="goToPostsBtn" className="back-btn" onClick={() => navigate('/posts')}>
+          <button type="button" id="goToPostsBtn" className="back-btn" onClick={() => navigate('/board')}>
             <svg viewBox="0 0 16 16">
               <path d="M10 3L5 8l5 5" />
             </svg>
@@ -331,7 +331,12 @@ export default function PostDetail() {
               {/* 작성자 프로필 + 액션 버튼 행 */}
               <div className="post-article__byline">
                 <div className="post-article__author">
-                  <div className="post-article__avatar">{avatarInitial}</div>
+                  <Avatar 
+                    src={post.authorProfileImg} 
+                    nickname={post.nickname}
+                    size={40}
+                    className="post-article__avatar"
+                  />
                   <div>
                     <p className="post-article__author-name">{post.nickname || '작성자'}</p>
                     <p className="post-article__author-date">{formattedDate}</p>
@@ -378,8 +383,8 @@ export default function PostDetail() {
                 commentCount={comments.length}
               />
               {hasChatRoom && (
-                <button type="button" id="goToChat" className="btn-chat-practice" onClick={handleGoToChat}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button type="button" id="goToChat" className="btn-enter-chat" onClick={handleGoToChat}>
+                  <svg className="btn-enter-chat__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                   </svg>
                   채팅으로 연습하기

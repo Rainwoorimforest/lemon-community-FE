@@ -1,91 +1,119 @@
 /* ============================================================
-   블루커뮤니티 — 공통 디자인 토큰
+   레몬커뮤니티 — 공통 디자인 토큰 (MD 기반)
    ============================================================ */
 
 :root {
-  /* --- 브랜드 컬러 --- */
-  --blue-950:  #0f1f5c;
-  --blue-900:  #1e3a8a;
-  --blue-800:  #1e40af;
-  --blue-700:  #1d4ed8;   /* primary */
-  --blue-500:  #3b82f6;
-  --blue-300:  #93c5fd;
-  --blue-200:  #bfdbfe;
-  --blue-100:  #dbeafe;
-  --blue-50:   #eff6ff;
+  /* --- Primitive (원색 팔레트) --- */
+  --lemon-50: #FFFBEA;
+  --lemon-100: #FFF3C4;
+  --lemon-300: #FCE588;
+  --lemon-500: #F5C518;
+  --lemon-600: #D9A80B;
+  --lemon-700: #B58607;
+  
+  --navy-50: #EEF1F5;
+  --navy-300: #5C6B7A;
+  --navy-500: #2C3A47;
+  --navy-700: #1B2530;
+  --navy-900: #0F151C;
 
-  /* --- 의미 기반 토큰 --- */
-  --color-primary:          var(--blue-700);
-  --color-primary-hover:    var(--blue-800);
-  --color-primary-disabled: var(--blue-100);
-  --color-primary-text:     #ffffff;
-  --color-primary-text-disabled: var(--blue-300);
+  --cream-0: #FDFBF5;
+  --cream-50: #F7F3E8;
+  --cream-100: #F0EBDB;
+  
+  --gray-50: #F5F3EF;
+  --gray-100: #E8E4DC;
+  --gray-300: #C7C0B3;
+  --gray-500: #8C8478;
+  --gray-700: #5A544A;
+  --gray-900: #2B271F;
 
-  --color-surface:          #ffffff;
-  --color-surface-muted:    rgba(255 255 255 / 0.60);  /* 60% */
-  --color-surface-subtle:   rgba(255 255 255 / 0.30);  /* 30% */
-  --color-surface-ghost:    rgba(255 255 255 / 0.10);  /* 10% */
+  --olive-500: #6B8E4E;
+  --coral-500: #E0563E;
 
-  --color-bg-page:          #f8faff;
-  --color-bg-gradient-from: var(--blue-50);
-  --color-bg-gradient-to:   #ffffff;
+  /* --- Backward Compatibility (기존 블루 테마 호환 덮어쓰기) --- */
+  --blue-950: var(--navy-900);
+  --blue-900: var(--navy-900);
+  --blue-800: var(--navy-700);
+  --blue-700: var(--lemon-500); /* Primary */
+  --blue-500: var(--navy-500);
+  --blue-300: var(--gray-300);
+  --blue-200: var(--gray-100);
+  --blue-100: var(--cream-100);
+  --blue-50:  var(--cream-50);
 
-  --color-border:           var(--blue-100);
-  --color-border-hover:     var(--blue-200);
+  /* --- Semantic Tokens --- */
+  --color-primary:          var(--lemon-500);
+  --color-primary-hover:    var(--lemon-600);
+  --color-primary-disabled: var(--lemon-100);
+  --color-primary-text:     var(--navy-900); 
+  --color-primary-text-disabled: var(--gray-500);
+
+  --color-surface:          rgba(255, 255, 255, 0.80); 
+  --color-surface-muted:    rgba(255, 255, 255, 0.60);
+  --color-surface-subtle:   rgba(255, 255, 255, 0.30);
+  --color-surface-ghost:    rgba(255, 255, 255, 0.10); 
+
+  --color-bg-page:          var(--cream-0);
+  --color-bg-gradient-from: var(--cream-50);
+  --color-bg-gradient-to:   var(--cream-100);
+
+  --color-border:           var(--gray-100);
+  --color-border-hover:     var(--gray-300);
 
   /* --- 텍스트 --- */
-  --color-text-heading:     var(--blue-900);
-  --color-text-body:        #475569;  /* slate-600 */
-  --color-text-secondary:   #94a3b8;  /* slate-400 */
-  --color-text-placeholder: #cbd5e1;  /* slate-300 */
+  --color-text-heading:     var(--navy-500);
+  --color-text-body:        var(--gray-900);
+  --color-text-secondary:   var(--gray-500);
+  --color-text-placeholder: var(--gray-300);
 
   /* --- 상태 컬러 --- */
-  --color-success:        #16a34a;
-  --color-success-bg:     #f0fdf4;
-  --color-success-border: #bbf7d0;
-  --color-error:          #ef4444;
-  --color-error-bg:       #fef2f2;
-  --color-error-border:   #fca5a5;
-  --color-warning:        #eab308;
+  --color-success:        var(--olive-500);
+  --color-success-bg:     #F3F6F0; 
+  --color-success-border: #C5D6B6;
+  --color-error:          var(--coral-500);
+  --color-error-bg:       #FDF2F0;
+  --color-error-border:   #F5C0B7;
+  --color-warning:        var(--lemon-600);
 
-  /* --- 타이포그래피 --- */
-  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  --font-size-xs:   0.75rem;    /* 12px */
-  --font-size-sm:   0.875rem;   /* 14px */
-  --font-size-base: 0.9375rem;  /* 15px */
-  --font-size-md:   1rem;       /* 16px */
-  --font-size-lg:   1.125rem;   /* 18px */
-  --font-size-xl:   1.25rem;    /* 20px */
-  --font-size-2xl:  1.5rem;     /* 24px */
+  /* --- 타이포그래피 (MD 스펙 반영) --- */
+  --font-sans: 'Pretendard', 'Inter', system-ui, sans-serif;
+  --font-size-xs:   12px;   /* caption */
+  --font-size-sm:   13px;   /* body-sm */
+  --font-size-base: 15px;   /* body / button */
+  --font-size-md:   15px;   /* button */
+  --font-size-lg:   17px;   /* body-lg */
+  --font-size-xl:   18px;   /* h4 */
+  --font-size-2xl:  22px;   /* h3 */
 
-  /* --- 간격 --- */
-  --space-1:  0.25rem;
-  --space-2:  0.5rem;
-  --space-3:  0.75rem;
-  --space-4:  1rem;
-  --space-5:  1.25rem;
-  --space-6:  1.5rem;
-  --space-8:  2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
+  /* --- 간격 (4px 베이스 스케일) --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
 
-  /* --- 반경 --- */
-  --radius-sm:   0.5rem;    /* 8px */
-  --radius-md:   0.75rem;   /* 12px */
-  --radius-lg:   1rem;      /* 16px */
-  --radius-xl:   1.25rem;   /* 20px */
-  --radius-2xl:  1.5rem;    /* 24px */
-  --radius-3xl:  1.875rem;  /* 30px */
+  /* --- 반경 (유치함과 딱딱함의 중간) --- */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-2xl:  24px;
+  --radius-3xl:  24px;
   --radius-full: 9999px;
 
-  /* --- 그림자 --- */
-  --shadow-sm:  0 1px 3px rgba(29 78 216 / 0.08), 0 1px 2px rgba(0 0 0 / 0.04);
-  --shadow-md:  0 4px 16px rgba(29 78 216 / 0.10), 0 1px 4px rgba(0 0 0 / 0.05);
-  --shadow-lg:  0 8px 32px rgba(29 78 216 / 0.12), 0 2px 8px rgba(0 0 0 / 0.06);
-  --shadow-xl:  0 16px 48px rgba(29 78 216 / 0.14), 0 4px 16px rgba(0 0 0 / 0.08);
+  /* --- 그림자 (웜 블랙 기반) --- */
+  --shadow-sm:  0 1px 2px rgba(43,39,31,.04), 0 1px 3px rgba(43,39,31,.06);
+  --shadow-md:  0 4px 12px rgba(43,39,31,.08);
+  --shadow-lg:  0 8px 24px rgba(43,39,31,.12);
+  --shadow-xl:  0 16px 40px rgba(43,39,31,.16);
 
-  /* --- 트랜지션 --- */
-  --transition-fast:   100ms ease;
-  --transition-base:   150ms ease;
-  --transition-slow:   250ms ease;
+  /* --- 트랜지션 (바운스 배제, ease-out) --- */
+  --transition-fast:   150ms ease-out;
+  --transition-base:   200ms cubic-bezier(0.16,1,0.3,1);
+  --transition-slow:   300ms cubic-bezier(0.16,1,0.3,1);
 }

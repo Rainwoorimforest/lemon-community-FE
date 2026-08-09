@@ -6,7 +6,9 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUserProfile, setCurrentUserProfile] = useState(null);
   const loggedInUserId = sessionStorage.getItem('userId');
+  //const loggedInProfileImg = sessionStorage.getItem('profileImage');
 
   const { data: userData, loading, error } = useFetch(
     loggedInUserId ? `/users/me` : null,
@@ -19,8 +21,19 @@ export function AuthProvider({ children }) {
   );
 
   useEffect(() => {
+    console.log("useFetch 전체:", userData);
+
+    if (userData && userData.data) {
+        console.log("Context에 넣기 직전:", userData.data);
+
+        setCurrentUser(userData.data);
+    }
+}, [userData]);
+
+  useEffect(() => {
     if (userData && userData.data) {
       setCurrentUser(userData.data);
+      // setCurrentUserProfile(userData)
     }
   }, [userData]);
 
@@ -30,6 +43,7 @@ export function AuthProvider({ children }) {
       // 세션 검증이 실패한 경우
       sessionStorage.clear();
       setCurrentUser(null);
+      // setCurrentUserProfile(null);
     }
   }, [error]);
 

@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import Avatar from '../Avatar.js';
 import * as Icons from '../Icons.js';
 
 // 메시지 피드 영역 컴포넌트 (forwardRef를 사용해 부모의 feedRef를 연결)
@@ -67,10 +68,13 @@ const ChatFeed = forwardRef(({ messages, currentUserId }, ref) => {
               
               {/* 상대방 아바타 (연속 메시지일 경우 hidden 처리하여 공간만 확보) */}
               {!isMine && (
-                <div className={`msg-avatar ${isContMsg ? 'msg-avatar--hidden' : ''} ${msg.messageRole === 'HOST' ? 'msg-avatar--host' : ''}`}>
-                  {msg.senderNickname?.substring(0, 1) || "유"}
-                  {msg.messageRole === 'HOST' && <span className="msg-avatar__crown">👑</span>}
-                </div>
+                <Avatar 
+                  src={msg.profileImg} 
+                  nickname={msg.senderNickname}
+                  size={36}
+                  showCrown={msg.messageRole === 'HOST'}
+                  className={`msg-avatar ${isContMsg ? 'msg-avatar--hidden' : ''} ${msg.messageRole === 'HOST' ? 'msg-avatar--host' : ''}`}
+                />
               )}
 
               {/* 메시지 내용 몸체 */}

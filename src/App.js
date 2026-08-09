@@ -23,13 +23,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/posts" element={<PostList />} />
-            <Route path="/post/:postId" element={<PostDetail />} />
-            <Route path="/post/write" element={<PostWrite />} />
-            <Route path="/post/write/:postId" element={<PostWrite />} />
-            <Route path="/user/edit" element={<UserInfoUpdate />} />
-            <Route path="/user/password" element={<UserPasswordUpdate />} />
-            <Route path="/chat-detail/:roomId" element={<ChatDetail />} />
+            <Route path="/board" element={<PostList />} />
+            <Route path="/board/:postId" element={<PostDetail />} />
+            <Route path="/board/write" element={<PostWrite />} />
+            <Route path="/board/write/:postId" element={<PostWrite />} />
+            <Route path="/profile/edit" element={<UserInfoUpdate />} />
+            <Route path="/profile/password" element={<UserPasswordUpdate />} />
+            <Route path="/chat/:roomId" element={<ChatDetail />} />
           </Routes>
         </div>
       </BrowserRouter>

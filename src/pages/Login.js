@@ -40,7 +40,7 @@ export default function Login() {
         if (fetchedData && fetchedData.data) {
             console.log("로그인 성공. 게시판 목록 조회 페이지로 이동합니다.");
             login(fetchedData.data.userId, fetchedData.data);
-            navigate('/posts'); 
+            navigate('/board'); 
         }
     }, [fetchedData, navigate, login]);
 
@@ -85,19 +85,19 @@ export default function Login() {
                     {/* 로고 영역 */}
                     <div className="login-panel__logo">
                         <div className="login-panel__logo-icon">
-                            <svg viewBox="0 0 20 20">
-                                <path d="M2.5 4.5A2 2 0 014.5 2.5h11a2 2 0 012 2v9a2 2 0 01-2 2H12l-2 2.5L8 15.5H4.5a2 2 0 01-2-2v-9z" />
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M12 2C16 2 22 8 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 8 8 2 12 2Z" />
                             </svg>
                         </div>
-                        <span className="login-panel__logo-name">블루커뮤니티</span>
+                        <span className="login-panel__logo-name">Lemon English</span>
                     </div>
 
                     {/* 메인 타이틀 */}
                     <h2 className="login-panel__heading">
-                        개발자들이<br />모이는 곳
+                        When life gives you lemons,<br />make lemonade.
                     </h2>
                     <p className="login-panel__desc">
-                        경험을 나누고, 함께 성장하는<br />개발자 커뮤니티에 참여하세요.
+                        상큼하고 즐거운 영어 회화의 시작!<br />매일매일 새로운 표현을 배워보세요.
                     </p>
                 </div>
 
@@ -112,7 +112,7 @@ export default function Login() {
                         </div>
                         <div>
                             <h4 className="login-panel__feature-title">신뢰할 수 있는 커뮤니티</h4>
-                            <p className="login-panel__feature-desc">검증된 개발자들이 모인 안전한 공간</p>
+                            <p className="login-panel__feature-desc">검증된 원어민과 학습자들이 모인 안전한 공간</p>
                         </div>
                     </li>
 
@@ -128,7 +128,7 @@ export default function Login() {
                         </div>
                         <div>
                             <h4 className="login-panel__feature-title">활발한 지식 공유</h4>
-                            <p className="login-panel__feature-desc">현직 개발자들의 생생한 경험과 인사이트</p>
+                            <p className="login-panel__feature-desc">실생활에서 바로 쓰는 생생한 영어 표현과 인사이트</p>
                         </div>
                     </li>
 
@@ -141,14 +141,14 @@ export default function Login() {
                         </div>
                         <div>
                             <h4 className="login-panel__feature-title">커리어 성장</h4>
-                            <p className="login-panel__feature-desc">취업, 이직, 사이드 프로젝트까지 함께</p>
+                            <p className="login-panel__feature-desc">왕초보부터 비즈니스 회화까지 함께</p>
                         </div>
                     </li>
                 </ul>
 
                 {/* 푸터 카피라이트 */}
                 <div className="login-panel__footer">
-                    <p className="login-panel__desc-xs">© 2026 블루커뮤니티 · 개발자를 위한 공간</p>
+                    <p className="login-panel__desc-xs">© 2026 Lemon English · 어른을 위한 상쾌한 영어 회화 플랫폼</p>
                 </div>
             </div>
 

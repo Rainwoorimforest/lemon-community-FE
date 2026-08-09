@@ -6,6 +6,7 @@ import Header from '../components/Header.js';
 import Modal from '../components/Modal.js';
 import ToastMessage from '../components/ToastMessage.js';
 import { useAuth } from '../context/AuthContext.js'; 
+import Avatar from '../components/Avatar.js';
 import '../css/user-edit.css';
 
 export default function UserInfoUpdate() {
@@ -17,8 +18,9 @@ export default function UserInfoUpdate() {
     
     const [nickname, setNickname] = useState(user?.nickname || '스타트업코드');
     const [nicknameError, setNicknameError] = useState('');
+    const [email, setEmail] = useState('');
     const [profileFile, setProfileFile] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(user?.profileImage || '../../../images/default-profile.png');
+    const [previewUrl, setPreviewUrl] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showToast, setShowToast] = useState(false);
     
@@ -27,6 +29,25 @@ export default function UserInfoUpdate() {
     const [shouldDelete, setShouldDelete] = useState(false);
 
     const withdrawalDialogRef = useRef(null);
+
+    // 상세 유저 정보 조회
+    const { data: userDetailData } = useFetch(
+        userId ? `/users/${userId}` : null,
+        {
+            method: 'GET',
+            credentials: "include"
+        },
+        [userId] // context에서 userId를 받아오므로 의존성 배열에 추가
+    );
+
+    // 상세 정보가 오면 state 업데이트
+    useEffect(() => {
+        if (userDetailData?.data) {
+            setNickname(userDetailData.data.nickname || '');
+            setEmail(userDetailData.data.email || '');
+            setPreviewUrl(userDetailData.data.profileImage || '');
+        }
+    }, [userDetailData]);
 
     // 실시간 닉네임 유효성 검사
     const handleNicknameChange = (e) => {
@@ -45,8 +66,7 @@ export default function UserInfoUpdate() {
         {
             method: 'PATCH',
             credentials: "include",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(patchPayload), 
+            body: patchPayload, 
         },
         [patchPayload]
     );
@@ -61,21 +81,13 @@ export default function UserInfoUpdate() {
         [shouldDelete]
     );
 
-    // 유저 정보 업데이트
-    useEffect(() => {
-        if (user) {
-            setNickname(user.nickname || '');
-            setPreviewUrl(user.profileImage || '../../../images/default-profile.png');
-        }
-    }, [user]);
-
     /* useEffect 후속처리 */
 
     useEffect(() => {
         if (fetchedData) {
             setShowToast(true); 
             const timer = setTimeout(() => {
-                navigate('/posts');
+                navigate('/board');
             }, 1200);
             return () => clearTimeout(timer);
         }
@@ -123,10 +135,17 @@ export default function UserInfoUpdate() {
         console.log("btnSubmitEdit 이벤트 안에는 들어가네요. 브라우저 콘솔에 찍히나요?");
         
         if (isFormValid) {
-            setPatchPayload({
-                nickname: nickname.trim(),
-                profileImage: profileFile ? profileFile.name : ""
-            });
+            const formData = new FormData();
+            const payload = {
+                nickname: nickname.trim()
+            };
+            formData.append("request", new Blob([JSON.stringify(payload)], { type: "application/json" }));
+            
+            if (profileFile) {
+                formData.append("file", profileFile);
+            }
+            
+            setPatchPayload(formData);
         } else {
             alert("입력 정보를 다시 확인해 주세요.");
         }
@@ -160,9 +179,10 @@ export default function UserInfoUpdate() {
                         {/* 프로필 이미지 수정 영역 */}
                         <div className="profile-edit">
                             <div className="profile-edit__img-wrap">
-                                <img 
+                                <Avatar 
                                     src={previewUrl} 
-                                    alt="프로필 사진" 
+                                    nickname={nickname}
+                                    size={100}
                                     className="profile-edit__img"
                                 />
                                 <label htmlFor="profileImageInput" className="profile-edit__overlay-btn">
@@ -193,7 +213,7 @@ export default function UserInfoUpdate() {
                                 <input 
                                     type="text" 
                                     className="field__input" 
-                                    value={user?.email || 'startupcode@gmail.com'} 
+                                    value={email || '로딩 중...'} 
                                     readOnly
                                 />
                             </div>
@@ -238,7 +258,7 @@ export default function UserInfoUpdate() {
                         id="editCompleteToast"
                         show={showToast} 
                         message="수정완료" 
-                        onClick={() => navigate('/posts')} 
+                        onClick={() => navigate('/board')} 
                     />
                 </main>
             </div>

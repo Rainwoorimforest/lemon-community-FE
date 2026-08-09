@@ -47,7 +47,7 @@ export default function UserPasswordUpdate() {
 
             const timer = setTimeout(() => {
                 setShowToast(false);
-                navigate('/posts');
+                navigate('/board');
             }, 3000);
 
             return () => clearTimeout(timer);
