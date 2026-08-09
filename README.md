@@ -59,6 +59,7 @@ React 라이브러리를 사용하여 구현하였고, 이외에 초기 프로�
  ┃ ┗ 📜 index.js                # 리액트 진입점 (Entry Point)
  ┣ 📜 .gitignore                # Git 제외 파일 목록
  ┗ 📜 package.json              # 프로젝트 의존성 관리 파일
+```
 
 ## 서비스 화면
 
