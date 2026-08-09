@@ -66,26 +66,26 @@ React 라이브러리를 사용하여 구현하였고, 이외에 초기 프로�
 #### 홈
 |메인 페이지| 로그인 페이지 | 회원가입 페이지 |
 |:---:|:---:|:---:|
-| ![홈페이지](이미지URL)| ![로그인 페이지](이미지URL) | ![회원가입 페이지](이미지URL) |
+| ![홈페이지](/readme_images/home.png)| ![로그인 페이지](/readme_images/login.png) | ![회원가입 페이지](/readme_images/signup.png) |
 
 ##### 게시글 
 |게시글 전체 조회|게시글 상세|게시글 작성 및 수정|
 |:---:|:---:|:---:|
-| ![게시글 전체 목록](이미지URL)|![게시글 상세 조회](이미지URL)|![게시글 작성 및 수정](이미지URL)|
+| ![게시글 전체 목록](/readme_images/post_list.png)|![게시글 상세 조회](/readme_images/post_detail_top.png)|![게시글 작성 및 수정](/readme_images/post_wrtie.png)|
 
 #### 댓글/좋아요/조회수
-|게시글 통계와 댓글|댓글 수정|댓글 삭제|댓글 삭제 모달|
-|:---:|:---:|:---:|:---:|
-| ![게시글 통계 목록](이미지URL)|![댓글 조회](이미지URL)|![댓글 작성 및 수정](이미지URL)|![댓글 삭제 모달](이미지URL)|
+|게시글 통계와 댓글|댓글 수정|댓글 삭제 모달|
+|:---:|:---:|:---:|
+| ![게시글 통계 목록 및 댓글](/readme_images/post_stat_comment.png)|![댓글 조회](/readme_images/comment_update.png)|![댓글 작성 및 수정](/readme_images/comment_modal.png)|
 
 #### 채팅
 |채팅방|채팅방 햄버거 Bar(방장)|채팅방 햄버거 Bar(일반)|
 |:---:|:---:|:---:|
-| ![채팅방](이미지URL)|![채팅방 햄버거 Bar(방장)](이미지URL)|![채팅방 햄버거 Bar(일반)](이미지URL)|
+| ![채팅방](/readme_images/chat.png)|![채팅방 햄버거 Bar(방장)](/readme_images/chat_setting_host.png)|![채팅방 햄버거 Bar(일반)](이미지URL)|
 
 |채팅방 나가기|
 |:---:|
-| ![채팅방 나가기 모달](이미지URL)|
+| ![채팅방 나가기 모달](/readme_images/chat_modal.png)|
 
 ## 트러블 슈팅
 - Context
