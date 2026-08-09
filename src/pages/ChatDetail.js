@@ -207,7 +207,8 @@ export default function ChatDetail() {
                     client.current.publish({
                         destination: `/publish/chat.enter.${roomId}`,
                         body: JSON.stringify({ 
-                            messageId: crypto.randomUUID(),
+                            // messageId: crypto.randomUUID(),
+                            messageId: Date.now().toString() + Math.random().toString(36).substring(2),
                             message: "ENTER", // 백엔드 Validation 통과용 임의 문자열
                             senderId: currentUserId
                         })
@@ -269,7 +270,8 @@ export default function ChatDetail() {
 
         const payload = { 
             senderId: currentUserId,
-            messageId: crypto.randomUUID(),
+            // messageId: crypto.randomUUID(),
+            messageId: Date.now().toString() + Math.random().toString(36).substring(2),
             message: inputText 
         };
         console.log("서버로 보내는 DTO:", payload);

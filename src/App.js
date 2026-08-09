@@ -9,6 +9,7 @@ import UserPasswordUpdate from './pages/PasswordUpdate.js';
 import PostDetail from './pages/PostDetail.js';
 import PostWrite from './pages/PostWrite.js';
 import ChatDetail from './pages/ChatDetail.js';
+import Home from './pages/Home.js';
 
 
 
@@ -19,6 +20,7 @@ function App() {
       <BrowserRouter>
         <div>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/posts" element={<PostList />} />
